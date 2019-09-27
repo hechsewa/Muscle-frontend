@@ -1,10 +1,22 @@
 import React from "react"
 
 class Audioplayer extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        //this.state.playing = false;
-    }
+        this.state = {
+            playing: false,
+        };
+        this.PlayAudio = this.PlayAudio.bind();
+    };
+
+    PlayAudio(){
+        function handleClick(e) {
+            e.preventDefault(); //nie można zwrócić false w celu zapobiegnięcia wykonania domyślnej akcji. Należy jawnie wywołać preventDefault
+            console.log("Klik play");
+            this.setState({ playing: true });
+            this.audio.play();
+        }
+    };
 
     render() {
         return (
@@ -22,7 +34,7 @@ class Audioplayer extends React.Component {
                </div>
                <div className="player">
                    <audio controls preload="false">
-                        <source src="" />
+                        <source src="../../../../temp/power-juice.mp3" />
                    </audio>
                </div>
            </div>

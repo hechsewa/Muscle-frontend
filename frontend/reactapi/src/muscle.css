@@ -97,29 +97,26 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
-.ocena {
+.btnPanel {
     width: 400px;
     margin: 0 auto;
     position: relative;
 }
 
-.ocena h5 {
+.btnPanel h5 {
     float: right;
-
+    margin-right: 15px;
+    margin-top: 10px
 }
 
-
-.buttonGrade {
-    float: right;
-    background-color: #d77a61;
-    border: none;
-    border-radius: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-    color: white;
+.thumbUpBtn, .thumbDownBtn {
+    float: left;
     margin-left: 0.8rem;
-    text-align: center;
-    font-weight: bold;
-    display: inline-block;
-    font-size: 1rem;
 }
+
+.btnNextHolder {
+    float: right;
+    margin-left: 0.8rem;
+}
+
+
