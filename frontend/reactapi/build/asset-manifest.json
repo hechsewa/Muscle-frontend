@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.08847c27.chunk.css",
+    "main.js": "/static/js/main.5742a978.chunk.js",
+    "main.js.map": "/static/js/main.5742a978.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.aaa78109.js",
+    "runtime-main.js.map": "/static/js/runtime-main.aaa78109.js.map",
+    "static/js/2.0fcdd358.chunk.js": "/static/js/2.0fcdd358.chunk.js",
+    "static/js/2.0fcdd358.chunk.js.map": "/static/js/2.0fcdd358.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.93f8a2aa4f55aab807e26e2080284d4d.js": "/precache-manifest.93f8a2aa4f55aab807e26e2080284d4d.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.08847c27.chunk.css.map": "/static/css/main.08847c27.chunk.css.map",
+    "static/media/01 All Of Me.mp3": "/static/media/01 All Of Me.65c0da04.mp3"
+  }
+}
