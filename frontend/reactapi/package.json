@@ -32,5 +32,8 @@
   "devDependencies": {
     "@material-ui/icons": "^4.4.3",
     "react-router-dom": "^5.1.0"
+  },
+  "engine": {
+    "node": "10.13.0"
   }
 }
