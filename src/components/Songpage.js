@@ -2,7 +2,6 @@ import React from "react"
 import Audioplayer from "./Audioplayer";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import IconButton from "@material-ui/core/IconButton/index";
 import { withRouter } from "react-router-dom";
 
@@ -83,12 +82,7 @@ class Songpage extends React.Component{
                         </IconButton>
                     </div>
                     <div className="btnNextHolder">
-                        <IconButton className="nextBtn"
-                                            aria-label="next song"
-                                            onClick={this.redirect}
-                                            ref={this.nextSong}>
-                                    <SkipNextIcon/>
-                        </IconButton>
+                       <p className="nextBtn" ref={this.nextSong} onClick={this.redirect}>Next</p>
                     </div>
                 </div>
             </div>
