@@ -1,3 +1,2 @@
 [config]
-project = frontend/reactapi
 command = deploy.cmd
