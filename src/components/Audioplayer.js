@@ -1,17 +1,20 @@
 import React from "react"
-import sound from "./01 All Of Me.mp3"
+import sound from "./01-Until_We_Get_By.mp3"
 
 class Audioplayer extends React.Component {
     constructor(props) {
         super(props);
+        let cover = this.props.cover==='' ?
+            'https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/514dc845-04f5-4538-8a4f-869b64243265/1-2.jpg'
+            :this.props.cover;
         this.state = {
             playing: false,
             src: sound,
-            cover: "https://cdn.shopify.com/s/files/1/0812/1837/products/0114-0008_grande.jpeg",
-            title: "All of me",
-            band: "Dixie Band",
-            genre: "jazz",
-            recommended: "nie"
+            cover: cover,
+            title: this.props.title,
+            band: this.props.band,
+            genre: this.props.genre,
+            recommended: this.props.recommended
         };
     };
 

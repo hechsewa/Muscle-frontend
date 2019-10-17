@@ -5,6 +5,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ForwardIcon from '@material-ui/icons/Forward';
 import IconButton from "@material-ui/core/IconButton/index";
 import { withRouter } from "react-router-dom";
+import Rating from "./Rating";
 
 
 class Songpage extends React.Component{
@@ -13,15 +14,17 @@ class Songpage extends React.Component{
         this.liked = this.liked.bind(this);
         this.disliked = this.disliked.bind(this);
         this.redirect = this.redirect.bind(this);
+        this.ratingChanged = this.ratingChanged.bind(this);
         this.state = {
             songId: this.props.match.params.id,
-            like: null
+            stars: 0
         };
-        this.thumbDown = React.createRef();
-        this.thumbUp = React.createRef();
         this.nextSong = React.createRef();
     };
 
+    ratingChanged(r) {
+        this.setState({stars: r});
+    }
 
     liked(e) {
         //e.target.style.color='#ffffff';
@@ -31,7 +34,6 @@ class Songpage extends React.Component{
         const downBtn = this.thumbDown.current;
         upBtn.style.color = '#d77a61';
         downBtn.style.color = '#0000008A';
-        console.log(this.state.like);
     };
 
     disliked(e) {
@@ -41,12 +43,13 @@ class Songpage extends React.Component{
         const downBtn = this.thumbDown.current;
         upBtn.style.color = '#0000008A';
         downBtn.style.color = '#d77a61';
-        console.log(this.state.like);
     }
 
     redirect(e) {
-        if (this.state.like === null) {
-            window.alert("Nie oceniłeś ej");
+        if (this.state.stars === 0) {
+            window.alert("Proszę ocenić utwór");
+        } else if (this.state.stars === 2) {
+            window.alert("Dwójeczka");
         } else {
             let newId = parseInt(this.state.songId);
             newId = newId + 1;
@@ -65,22 +68,16 @@ class Songpage extends React.Component{
         return (
             <div className="audio">
                 <h1>Ocena piosenki {this.state.songId}</h1>
-                <Audioplayer/>
+                <Audioplayer cover={''}
+                             title={'All Of Me'}
+                             band={'DixiBand'}
+                             genre={'Jazz'}
+                             recommended={'yes'}
+                />
                 <br/>
                 <div className="btnPanel">
                     <div className="buttonGradeHolder">
-                        <IconButton className="thumbUpBtn"
-                                    aria-label="thumb up"
-                                    onClick={this.liked}
-                                    ref={this.thumbUp}>
-                            <ThumbUpIcon fontSize="small"/>
-                        </IconButton>
-                        <IconButton className="thumbDownBtn"
-                                    aria-label="thumb down"
-                                    onClick={this.disliked}
-                                    ref={this.thumbDown}>
-                            <ThumbDownIcon fontSize="small"/>
-                        </IconButton>
+                        <Rating stars={this.state.stars} onRatingChange={this.ratingChanged}/>
                     </div>
                     <div className="btnNextHolder">
                         <IconButton className="nextBtn"

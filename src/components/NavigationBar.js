@@ -1,11 +1,14 @@
 import React from "react"
+import logo from './imgs/logo-pelne-grey.png'
 
 function NavigationBar() {
     return (
         <header className="site-header">
             <nav className="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
                 <div className="container">
-                    <a className="navbar-brand mr-4" href="/">MuSCLe: MUsic Score Collection for machine LEarning</a>
+                    <a className="navbar-brand mr-4" href="/">
+                        <img className="logoHeader" src={logo} height='50px'/>
+                    </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                             aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

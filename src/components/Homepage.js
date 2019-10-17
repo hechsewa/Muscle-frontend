@@ -1,4 +1,5 @@
 import React from "react"
+import logoPink from './imgs/logo-pelne-pink.png'
 
 class Homepage extends React.Component {
     constructor(props){
@@ -7,17 +8,17 @@ class Homepage extends React.Component {
     }
 
     startSongs(e) {
-        this.props.history.push('/song/1');
+        this.props.history.push('/metric');
         window.location.reload();
     }
 
     render() {
         return (
             <div className="home">
-                <h1>MuSCLe - Music Score Collection for machine Learning</h1>
+                <img className='logoHome' src={logoPink} alt={'muscle logo pink'} />
                 <div className="welcome">
-                    <p>Cześć! Dzięki za chwilę twojego czasu. Ankieta powinna zająć maksymalnie do 30 minut.
-                        Jeśli chcesz wiedzieć więcej o tym po co to robisz i po co ja to robię - kilknij tutaj lub w
+                    <p>Cześć! Dzięki za chwilę twojego czasu. Ocenianie powinno zająć maksymalnie do 30 minut.
+                        Jeśli chcesz wiedzieć więcej o tym po co to robisz i po co ja to robię - kilknij <a href="/about">tutaj</a> lub w
                         nawigacji.</p>
                 </div>
 
@@ -25,9 +26,9 @@ class Homepage extends React.Component {
                 <div className="instrukcje">
                     <ul>
                         <li>posłuchaj 30 sekundowego fragmentu utworu</li>
-                        <li>kliknij + jeżeli utwór Ci się podobał, - jeżeli nie</li>
-                        <li>po kliknięciu strona automatycznie przeniesie Cię do następnego utworu</li>
-                        <li>powtórz operację aż dojdziesz do strony informującej o końcu ankiety</li>
+                        <li>oceń utwór w skali 1-5, przyznając mu gwiazdki</li>
+                        <li>po kliknięciu przycisku strzałki strona automatycznie przeniesie Cię do następnego utworu</li>
+                        <li>powtórz operację aż dojdziesz do strony informującej o końcu oceniania</li>
                     </ul>
                 </div>
                 <p>

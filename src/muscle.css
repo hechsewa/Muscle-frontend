@@ -1,7 +1,8 @@
 body {
   background: #eff1f3;
   color: #223843;
-  margin-top: 7rem;
+  margin-top: 10rem;
+    text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -22,12 +23,17 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
 }
 
+p {
+    text-align: left;
+}
+
 .li {
     color: #223843;
 }
 
 .instrukcje {
     margin-left: 150px;
+    text-align: left;
 }
 
 
@@ -50,20 +56,18 @@ h1, h2, h3, h4, h5, h6 {
 .audio-container {
     background: #ffffff;
     border-radius:100px;
-}
-
-.audio-container {
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
     width: 590px;
     position: relative;
+    text-align: left;
 }
 
 .player audio {
     width: 330px;
     padding: 10px;
-    background: #ffffff;
+    text-align: center;
 }
 
 .metadata {
@@ -109,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 10px
 }
 
-.thumbUpBtn, .thumbDownBtn {
+.btnGradeHolder {
     float: left;
     margin-left: 0.8rem;
 }
@@ -117,6 +121,46 @@ h1, h2, h3, h4, h5, h6 {
 .btnNextHolder {
     float: right;
     margin-left: 0.8rem;
+    margin-top: -2.8em;
 }
 
+.star {
+  font-size: 2em;
+  color: #d77a61;
+  cursor: pointer;
+}
 
+.logoHeader{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-right: 4em;
+}
+
+.logoHome {
+    height: 6em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em;
+}
+
+a {
+   color: #d77a61;
+}
+
+a:hover {
+    color: #223843;
+    text-decoration: none;
+}
+
+.nameForm {
+    display: inline-block;
+}
+
+.nameForm h2{
+    margin-bottom: 1em;
+}
+
+.nameForm .form-group{
+    text-align: left;
+}
