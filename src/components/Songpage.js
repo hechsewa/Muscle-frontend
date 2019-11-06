@@ -5,61 +5,97 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ForwardIcon from '@material-ui/icons/Forward';
 import IconButton from "@material-ui/core/IconButton/index";
 import { withRouter } from "react-router-dom";
+import axios from 'axios';
 import Rating from "./Rating";
-
 
 class Songpage extends React.Component{
     constructor(props){
         super(props);
-        this.liked = this.liked.bind(this);
-        this.disliked = this.disliked.bind(this);
         this.redirect = this.redirect.bind(this);
         this.ratingChanged = this.ratingChanged.bind(this);
         this.state = {
             songId: this.props.match.params.id,
-            stars: 0
+            userId: this.props.match.params.userid,
+            stars: 0,
+            img: '',
+            fetchedMeta: {
+                album: '',
+                band: '',
+                genre: '',
+                title: ''
+            }
         };
         this.nextSong = React.createRef();
+        this.componentWillMount = this.componentWillMount.bind(this);
+        this.getBase64 = this.getBase64.bind(this)
     };
+
+    getBase64() {
+        axios
+            .get('http://127.0.0.1:5000/pic/cover'+this.state.songId+'.jpg',
+                { responseType: 'arraybuffer' })
+            .then(response => {
+                const base64 = btoa(
+                    new Uint8Array(response.data).reduce(
+                    (data, byte) => data + String.fromCharCode(byte),
+                    '',),);
+                if (base64 === '') {
+                    this.setState({ img: ''});
+                } else {
+                    this.setState({ img: "data:;base64," + base64 });
+                }
+                }).catch((error) => {
+                console.log(error);
+        })
+    }
+
+    componentWillMount () {
+        axios.get('http://127.0.0.1:5000/meta/'+this.state.songId)
+            .then( (response) => {
+                console.log("response", response);
+                this.setState({
+                    fetchedMeta: response.data
+                });
+            }).catch( (error) => {
+            console.log(error);});
+        this.getBase64();
+     }
 
     ratingChanged(r) {
         this.setState({stars: r});
     }
 
-    liked(e) {
-        //e.target.style.color='#ffffff';
-        e.preventDefault();
-        this.state.like = true;
-        const upBtn = this.thumbUp.current;
-        const downBtn = this.thumbDown.current;
-        upBtn.style.color = '#d77a61';
-        downBtn.style.color = '#0000008A';
-    };
-
-    disliked(e) {
-        e.preventDefault();
-        this.state.like = false;
-        const upBtn = this.thumbUp.current;
-        const downBtn = this.thumbDown.current;
-        upBtn.style.color = '#0000008A';
-        downBtn.style.color = '#d77a61';
-    }
-
     redirect(e) {
         if (this.state.stars === 0) {
             window.alert("Proszę ocenić utwór");
-        } else if (this.state.stars === 2) {
-            window.alert("Dwójeczka");
         } else {
             let newId = parseInt(this.state.songId);
             newId = newId + 1;
-            if (newId > 100) {
+            //zapis oceny do bazy
+
+            const grade_obj = {
+            "song_id": this.state.songId,
+            "user_id": this.state.userId,
+            "grade": this.state.stars
+            };
+
+            let urlL = "http://localhost:5000/user/1/song/1/grade";
+            const options = {
+             method: 'POST',
+             headers: { 'content-type': 'application/json' },
+             data: JSON.stringify(grade_obj),
+             url: urlL,
+            };
+            axios(options).then((res) => {
+            console.log(res);
+            if (newId > 107 || newId < 0) {
                 this.props.history.push('/finish');
                 window.location.reload();
             } else {
-                this.props.history.push('/song/' + newId);
+                this.props.history.push('/user/'+this.state.userId+'/song/' + newId);
                 window.location.reload();
             }
+            });
         }
     }
 
@@ -67,11 +103,12 @@ class Songpage extends React.Component{
     render() {
         return (
             <div className="audio">
-                <h1>Ocena piosenki {this.state.songId}</h1>
-                <Audioplayer cover={''}
-                             title={'All Of Me'}
-                             band={'DixiBand'}
-                             genre={'Jazz'}
+                <h1>Ocena piosenki</h1>
+                <Audioplayer cover={this.state.img}
+                             id = {this.state.songId}
+                             title={this.state.fetchedMeta.title}
+                             band={this.state.fetchedMeta.band}
+                             genre={this.state.fetchedMeta.genre}
                              recommended={'yes'}
                 />
                 <br/>

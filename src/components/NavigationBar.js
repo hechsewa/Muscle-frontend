@@ -15,8 +15,9 @@ function NavigationBar() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarToggle">
                         <div className="navbar-nav mr-auto">
-                            <a className="nav-item nav-link" href="/">Strona główna</a>
-                            <a className="nav-item nav-link" href="/about">O MuSCLe</a>
+                            <a className="nav-item nav-link" href="/">strona główna</a>
+                            <a className="nav-item nav-link" href="/about">o aplikacji</a>
+                            <a className="nav-item nav-link" href="/credits">źródła</a>
                         </div>
                     </div>
                 </div>

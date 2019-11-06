@@ -1,6 +1,6 @@
 import * as React from "react";
 import {withRouter} from "react-router-dom";
-
+import axios from 'axios';
 
 class NameForm extends React.Component {
     constructor(props){
@@ -8,13 +8,15 @@ class NameForm extends React.Component {
         this.state = {
             name: '',
             age: '',
-            gender: ''
+            gender: '',
+            user_id: 0
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleAgeChange = this.handleAgeChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.radioChange = this.radioChange.bind(this);
+        this.postUserData = this.postUserData.bind(this);
     };
 
     handleNameChange(event) {
@@ -25,6 +27,14 @@ class NameForm extends React.Component {
     this.setState({age: event.target.value});
     };
 
+    postUserData() {
+        const user = {
+            pseudo: this.state.name.toString(),
+            age: this.state.age.toString(),
+            gender: this.state.gender.toString()
+        };
+    }
+
     handleSubmit(event) {
      //validation
      if (this.state.name === '') {
@@ -33,12 +43,33 @@ class NameForm extends React.Component {
          alert('Proszę podać wiek');
      } else if (this.state.gender === '') {
          alert('Proszę podać płeć');
+     } else if (isNaN(this.state.age)) {
+         alert("Wiek to tylko liczba");
      } else {
-         alert('Podano następujące imię: ' + this.state.name);
-         //tu wysylanie do bazy danych
-         //tu przejscie do piosenki
-         this.props.history.push('/song/1');
-         window.location.reload();
+         //alert('Podano następujące imię: ' + this.state.name);
+         //this.postUserData();
+        const user = {
+            "pseudo": this.state.name.toString(),
+            "age": this.state.age.toString(),
+            "gender": this.state.gender.toString()
+        };
+
+        let urlL = "http://localhost:5000/user/1";
+        const options = {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          data: JSON.stringify(user),
+          url: urlL,
+        };
+        axios(options).then((res) => {
+            this.setState({user_id: res.data.user_id});
+            if (this.state.user_id !== 0) {
+                this.props.history.push('/user/' + this.state.user_id + '/song/1');
+                window.location.reload();
+            } else {
+                alert("Coś poszło nie tak, spróbuj ponownie.");
+            }
+        });
      }
     event.preventDefault();
     };

@@ -18,8 +18,9 @@ class Homepage extends React.Component {
                 <img className='logoHome' src={logoPink} alt={'muscle logo pink'} />
                 <div className="welcome">
                     <p>Cześć! Dzięki za chwilę twojego czasu. Ocenianie powinno zająć maksymalnie do 30 minut.
-                        Jeśli chcesz wiedzieć więcej o tym po co to robisz i po co ja to robię - kilknij <a href="/about">tutaj</a> lub w
-                        nawigacji.</p>
+                        Jeśli chcesz wiedzieć więcej o projekcie - kilknij
+                        <a href="/about"> tutaj</a>.
+                    </p>
                 </div>
 
                 <h4>Jak będzie wyglądać ankieta?</h4>
@@ -34,7 +35,8 @@ class Homepage extends React.Component {
                 <p>
                     Kolejne wyświetlane przez aplikację utwory będą bazować na twoich poprzednich ocenach i dobierać
                     piosenki,
-                    które odpowiadają twoim gustom. Im więcej utworów ocenisz, tym dokładniejsze będą propozycje. Jak
+                    które odpowiadają twoim gustom. Im więcej utworów ocenisz, tym dokładniejsze będą propozycje.
+                    Nie przerywaj badania, wyniki zostaną zapisane dopiero na końcu. Jak
                     będziesz gotowy
                     kliknij poniższy przycisk, aby rozpocząć.
                 </p>
