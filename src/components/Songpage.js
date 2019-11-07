@@ -32,7 +32,7 @@ class Songpage extends React.Component{
 
     getBase64() {
         axios
-            .get('http://127.0.0.1:5000/pic/cover'+this.state.songId+'.jpg',
+            .get('https://muscle-server.herokuapp.com/pic/cover'+this.state.songId+'.jpg',
                 { responseType: 'arraybuffer' })
             .then(response => {
                 const base64 = btoa(
@@ -50,7 +50,7 @@ class Songpage extends React.Component{
     }
 
     componentWillMount () {
-        axios.get('http://127.0.0.1:5000/meta/'+this.state.songId)
+        axios.get('https://muscle-server.herokuapp.com/meta/'+this.state.songId)
             .then( (response) => {
                 console.log("response", response);
                 this.setState({
@@ -79,7 +79,7 @@ class Songpage extends React.Component{
             "grade": this.state.stars
             };
 
-            let urlL = "http://localhost:5000/user/1/song/1/grade";
+            let urlL = "https://muscle-server.herokuapp.com/user/1/song/1/grade";
             const options = {
              method: 'POST',
              headers: { 'content-type': 'application/json' },

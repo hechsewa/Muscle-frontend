@@ -54,7 +54,7 @@ class NameForm extends React.Component {
             "gender": this.state.gender.toString()
         };
 
-        let urlL = "http://localhost:5000/user/1";
+        let urlL = "https://muscle-server.herokuapp.com/user/1";
         const options = {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
