@@ -8,6 +8,8 @@ import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import Rating from "./Rating";
 
+var newId = 0;
+
 class Songpage extends React.Component{
     constructor(props){
         super(props);
@@ -18,7 +20,7 @@ class Songpage extends React.Component{
             userId: this.props.match.params.userid,
             stars: 0,
             img: '',
-            recommended: 'losowy',
+            recommended: '',
             fetchedMeta: {
                 album: '',
                 band: '',
@@ -70,7 +72,6 @@ class Songpage extends React.Component{
         if (this.state.stars === 0) {
             window.alert("Proszę ocenić utwór");
         } else {
-            let newId = parseInt(this.state.songId);
             newId = newId + 1;
             //zapis oceny do bazy
 
@@ -90,6 +91,9 @@ class Songpage extends React.Component{
             };
             axios(options).then((res) => {
                 if (newId%5===0){ // co 5 piosenka jest losowa
+                    this.setState({
+                        recommended: 'losowy'
+                    });
                     axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/random')
                         .then( (response) => {
                             if (response.data['song_id'] !== -1) {
@@ -103,7 +107,7 @@ class Songpage extends React.Component{
                         console.log(error);});
                 } else { // pobieramy id rekomendowanej piosenki
                     this.setState({
-                        recommended: 'polecane'
+                        recommended: 'polecany'
                     });
                    axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommend')
                         .then( (response) => {
