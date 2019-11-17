@@ -18,6 +18,7 @@ class Songpage extends React.Component{
             userId: this.props.match.params.userid,
             stars: 0,
             img: '',
+            recommended: 'losowy',
             fetchedMeta: {
                 album: '',
                 band: '',
@@ -79,6 +80,7 @@ class Songpage extends React.Component{
             "grade": this.state.stars
             };
 
+            // zapisz ocenę do bazy
             let urlL = "https://muscle-server.herokuapp.com/user/1/song/1/grade";
             const options = {
              method: 'POST',
@@ -87,14 +89,35 @@ class Songpage extends React.Component{
              url: urlL,
             };
             axios(options).then((res) => {
-            console.log(res);
-            if (newId > 107 || newId < 0) {
-                this.props.history.push('/finish');
-                window.location.reload();
-            } else {
-                this.props.history.push('/user/'+this.state.userId+'/song/' + newId);
-                window.location.reload();
-            }
+                console.log(res);
+                if (newId%5===0){ // co 5 piosenka jest losowa
+                    axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/random')
+                        .then( (response) => {
+                            if (response.data['song_id'] !== -1) {
+                                this.props.history.push('/user/' + this.state.userId + '/song/' + response.data['song_id']);
+                                window.location.reload();
+                            } else {
+                                this.props.history.push('/finish');
+                                window.location.reload();
+                            }
+                        }).catch( (error) => {
+                        console.log(error);});
+                } else { // pobieramy id rekomendowanej piosenki
+                    this.setState({
+                        recommended: 'polecane'
+                    });
+                   axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommended')
+                        .then( (response) => {
+                            if (response.data['song_id'] !== -1) {
+                                this.props.history.push('/user/' + this.state.userId + '/song/' + response.data['song_id']);
+                                window.location.reload();
+                            } else {
+                                this.props.history.push('/finish');
+                                window.location.reload();
+                            }
+                        }).catch( (error) => {
+                        console.log(error);});
+                }
             });
         }
     }
@@ -109,7 +132,7 @@ class Songpage extends React.Component{
                              title={this.state.fetchedMeta.title}
                              band={this.state.fetchedMeta.band}
                              genre={this.state.fetchedMeta.genre}
-                             recommended={'yes'}
+                             recommended={this.state.recommended}
                 />
                 <br/>
                 <div className="btnPanel">
