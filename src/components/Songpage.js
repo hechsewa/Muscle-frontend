@@ -106,7 +106,7 @@ class Songpage extends React.Component{
                     this.setState({
                         recommended: 'polecane'
                     });
-                   axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommended')
+                   axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommend')
                         .then( (response) => {
                             if (response.data['song_id'] !== -1) {
                                 this.props.history.push('/user/' + this.state.userId + '/song/' + response.data['song_id']);
