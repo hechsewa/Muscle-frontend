@@ -9,6 +9,7 @@ import axios from 'axios';
 import Rating from "./Rating";
 
 var newId = 0;
+var recStatus = 'losowy';
 
 class Songpage extends React.Component{
     constructor(props){
@@ -20,7 +21,7 @@ class Songpage extends React.Component{
             userId: this.props.match.params.userid,
             stars: 0,
             img: '',
-            recommended: '',
+            recommended: recStatus,
             fetchedMeta: {
                 album: '',
                 band: '',
@@ -91,9 +92,7 @@ class Songpage extends React.Component{
             };
             axios(options).then((res) => {
                 if (newId%5===0){ // co 5 piosenka jest losowa
-                    this.setState({
-                        recommended: 'losowy'
-                    });
+                    recStatus = 'losowy';
                     axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/random')
                         .then( (response) => {
                             if (response.data['song_id'] !== -1) {
@@ -106,9 +105,7 @@ class Songpage extends React.Component{
                         }).catch( (error) => {
                         console.log(error);});
                 } else { // pobieramy id rekomendowanej piosenki
-                    this.setState({
-                        recommended: 'polecany'
-                    });
+                    recStatus = 'polecany';
                    axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommend')
                         .then( (response) => {
                             if (response.data['song_id'] !== -1) {
