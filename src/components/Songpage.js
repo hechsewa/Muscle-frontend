@@ -89,7 +89,6 @@ class Songpage extends React.Component{
              url: urlL,
             };
             axios(options).then((res) => {
-                console.log(res);
                 if (newId%5===0){ // co 5 piosenka jest losowa
                     axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/random')
                         .then( (response) => {
