@@ -9,4 +9,4 @@ function Finishpage() {
     )
 }
 
-export default Creditspage;
+export default Finishpage;
