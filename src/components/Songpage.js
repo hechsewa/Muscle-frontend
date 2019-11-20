@@ -119,8 +119,10 @@ class Songpage extends React.Component{
                 } else { // pobieramy id rekomendowanej piosenki
                    axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommend')
                         .then( (response) => {
-                            if (response.data['song_id'] !== -1) {
-                                this.props.history.push('/user/' + this.state.userId + '/song/' + response.data['song_id']);
+                            let rec_song = response.data['song_id'];
+                            if (rec_song !== -1) {
+                                rec_song=response.data['song_id']; //?
+                                this.props.history.push('/user/' + this.state.userId + '/song/' + rec_song);
                                 window.location.reload();
                             } else {
                                 this.props.history.push('/finish');
