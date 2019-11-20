@@ -29,8 +29,8 @@ class Songpage extends React.Component{
         };
         this.nextSong = React.createRef();
         this.componentWillMount = this.componentWillMount.bind(this);
-        this.getBase64 = this.getBase64.bind(this)
-        this.setCounter = this.setCounter.bind(this)
+        this.getBase64 = this.getBase64.bind(this);
+        this.setCounter = this.setCounter.bind(this);
     };
 
     getBase64() {
@@ -55,10 +55,12 @@ class Songpage extends React.Component{
     setCounter() {
        axios
             .get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/grades/sum')
-            .then(response => {
+            .then((response) => {
                    this.setState({
-                       counter: response.data['grade']+1
+                       counter: response.data["grade"]+1,
+                       recommended: (response.data["grade"])%5===0?'losowy':'polecony'
                    });
+                   console.log(response.data);
                 }).catch((error) => {
                 console.log(error);
         })
@@ -75,16 +77,6 @@ class Songpage extends React.Component{
             console.log(error);});
 
         this.setCounter();
-        console.log(this.state.counter);
-        if (this.state.counter%5===0) {
-            this.setState({
-                recommended: 'losowy'
-            });
-        } else {
-            this.setState({
-                recommended: 'polecony'
-            });
-        }
         this.getBase64();
      }
 
@@ -96,7 +88,6 @@ class Songpage extends React.Component{
         if (this.state.stars === 0) {
             window.alert("Proszę ocenić utwór");
         } else {
-            this.counter = this.counter + 1;
             //zapis oceny do bazy
 
             const grade_obj = {
@@ -104,7 +95,6 @@ class Songpage extends React.Component{
             "user_id": this.state.userId,
             "grade": this.state.stars
             };
-
             // zapisz ocenę do bazy
             let urlL = "https://muscle-server.herokuapp.com/user/1/song/1/grade";
             const options = {
@@ -114,7 +104,7 @@ class Songpage extends React.Component{
              url: urlL,
             };
             axios(options).then((res) => {
-                if (this.counter%5===0){ // co 5 piosenka jest losowa
+                if (this.state.counter%5===0){ // co 5 piosenka jest losowa
                     axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/random')
                         .then( (response) => {
                             if (response.data['song_id'] !== -1) {
