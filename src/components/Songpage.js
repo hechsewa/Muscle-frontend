@@ -104,32 +104,33 @@ class Songpage extends React.Component{
              url: urlL,
             };
             axios(options).then((res) => {
-                if (this.state.counter%5===0){ // co 5 piosenka jest losowa
-                    axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/random')
-                        .then( (response) => {
-                            if (response.data['song_id'] !== -1) {
-                                this.props.history.push('/user/' + this.state.userId + '/song/' + response.data['song_id']);
-                                window.location.reload();
-                            } else {
-                                this.props.history.push('/finish');
-                                window.location.reload();
-                            }
-                        }).catch( (error) => {
-                        console.log(error);});
-                } else { // pobieramy id rekomendowanej piosenki
-                   axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommend')
-                        .then( (response) => {
-                            let rec_song = response.data['song_id'];
-                            if (rec_song !== -1) {
-                                rec_song=response.data['song_id']; //?
-                                this.props.history.push('/user/' + this.state.userId + '/song/' + rec_song);
-                                window.location.reload();
-                            } else {
-                                this.props.history.push('/finish');
-                                window.location.reload();
-                            }
-                        }).catch( (error) => {
-                        console.log(error);});
+                if (this.state.counter+1===107){
+                    this.props.history.push('/finish');
+                    window.location.reload();
+                } else {
+                    if (this.state.counter % 5 === 0) { // co 5 piosenka jest losowa
+                        axios.get('https://muscle-server.herokuapp.com/user/' + this.state.userId + '/random')
+                            .then((response) => {
+                                if (response.data['song_id'] !== -1) {
+                                    this.props.history.push('/user/' + this.state.userId + '/song/' + response.data['song_id']);
+                                    window.location.reload();
+                                }
+                            }).catch((error) => {
+                            console.log(error);
+                        });
+                    } else { // pobieramy id rekomendowanej piosenki
+                        axios.get('https://muscle-server.herokuapp.com/user/' + this.state.userId + '/recommend')
+                            .then((response) => {
+                                let rec_song = response.data['song_id'];
+                                if (rec_song !== -1) {
+                                    rec_song = response.data['song_id'];
+                                    this.props.history.push('/user/' + this.state.userId + '/song/' + rec_song);
+                                    window.location.reload();
+                                }
+                            }).catch((error) => {
+                            console.log(error);
+                        });
+                    }
                 }
             });
         }

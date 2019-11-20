@@ -24,6 +24,7 @@ function App() {
                 <Route path={"/user/:userid/song/:id"} component={Songpage} />
                 <Route path={"/metric"} component={NameForm} />
                 <Route path={"/credits"} component={Creditspage} />
+                <Route path={"/finish"} component={Finishpage} />
                 <Route path={"/"} component={Homepage} />
             </Switch>
         </div>
