@@ -8,9 +8,6 @@ import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import Rating from "./Rating";
 
-var newId = 0;
-var recStatus = 'losowy';
-
 class Songpage extends React.Component{
     constructor(props){
         super(props);
@@ -21,17 +18,19 @@ class Songpage extends React.Component{
             userId: this.props.match.params.userid,
             stars: 0,
             img: '',
-            recommended: recStatus,
             fetchedMeta: {
                 album: '',
                 band: '',
                 genre: '',
                 title: ''
-            }
+            },
+            recommended: ''
         };
+        this.counter = 0;
         this.nextSong = React.createRef();
         this.componentWillMount = this.componentWillMount.bind(this);
         this.getBase64 = this.getBase64.bind(this)
+        this.setCounter = this.setCounter.bind(this)
     };
 
     getBase64() {
@@ -53,15 +52,37 @@ class Songpage extends React.Component{
         })
     }
 
+    setCounter() {
+       axios
+            .get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/grades/sum')
+            .then(response => {
+                   this.counter = response.data['grades'] +1;
+                }).catch((error) => {
+                console.log(error);
+        })
+    }
+
     componentWillMount () {
         axios.get('https://muscle-server.herokuapp.com/meta/'+this.state.songId)
             .then( (response) => {
-                console.log("response", response);
+                //console.log("response", response);
                 this.setState({
                     fetchedMeta: response.data
                 });
             }).catch( (error) => {
             console.log(error);});
+
+        this.setCounter();
+        console.log(this.counter);
+        if (this.counter%5===0) {
+            this.setState({
+                recommended: 'losowy'
+            });
+        } else {
+            this.setState({
+                recommended: 'polecony'
+            });
+        }
         this.getBase64();
      }
 
@@ -73,7 +94,7 @@ class Songpage extends React.Component{
         if (this.state.stars === 0) {
             window.alert("Proszę ocenić utwór");
         } else {
-            newId = newId + 1;
+            this.counter = this.counter + 1;
             //zapis oceny do bazy
 
             const grade_obj = {
@@ -91,8 +112,7 @@ class Songpage extends React.Component{
              url: urlL,
             };
             axios(options).then((res) => {
-                if (newId%5===0){ // co 5 piosenka jest losowa
-                    recStatus = 'losowy';
+                if (this.counter%5===0){ // co 5 piosenka jest losowa
                     axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/random')
                         .then( (response) => {
                             if (response.data['song_id'] !== -1) {
@@ -105,7 +125,6 @@ class Songpage extends React.Component{
                         }).catch( (error) => {
                         console.log(error);});
                 } else { // pobieramy id rekomendowanej piosenki
-                    recStatus = 'polecany';
                    axios.get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/recommend')
                         .then( (response) => {
                             if (response.data['song_id'] !== -1) {
