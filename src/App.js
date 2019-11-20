@@ -6,6 +6,8 @@ import Aboutpage from "./components/Aboutpage";
 import Songpage from "./components/Songpage.js";
 import NameForm from "./components/NameForm";
 import Creditspage from "./components/Creditspage";
+import Finishpage from "./components/Finishpage";
+
 
 function App() {
     /*useEffect(() => {
