@@ -26,7 +26,7 @@ class Songpage extends React.Component{
             },
             recommended: ''
         };
-        this.counter = 0;
+        this.counter = '';
         this.nextSong = React.createRef();
         this.componentWillMount = this.componentWillMount.bind(this);
         this.getBase64 = this.getBase64.bind(this)
@@ -56,7 +56,7 @@ class Songpage extends React.Component{
        axios
             .get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/grades/sum')
             .then(response => {
-                   this.counter = response.data['grades'] +1;
+                   this.counter = response.data['grade'] +1;
                 }).catch((error) => {
                 console.log(error);
         })
