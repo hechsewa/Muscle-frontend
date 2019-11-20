@@ -24,9 +24,9 @@ class Songpage extends React.Component{
                 genre: '',
                 title: ''
             },
-            recommended: ''
+            recommended: '',
+            counter: ''
         };
-        this.counter = '';
         this.nextSong = React.createRef();
         this.componentWillMount = this.componentWillMount.bind(this);
         this.getBase64 = this.getBase64.bind(this)
@@ -56,7 +56,9 @@ class Songpage extends React.Component{
        axios
             .get('https://muscle-server.herokuapp.com/user/'+this.state.userId+'/grades/sum')
             .then(response => {
-                   this.counter = response.data['grade'] +1;
+                   this.setState({
+                       counter: response.data['grade']+1
+                   });
                 }).catch((error) => {
                 console.log(error);
         })
@@ -73,8 +75,8 @@ class Songpage extends React.Component{
             console.log(error);});
 
         this.setCounter();
-        console.log(this.counter);
-        if (this.counter%5===0) {
+        console.log(this.state.counter);
+        if (this.state.counter%5===0) {
             this.setState({
                 recommended: 'losowy'
             });
