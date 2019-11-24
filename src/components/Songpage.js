@@ -73,6 +73,16 @@ class Songpage extends React.Component{
                 this.setState({
                     fetchedMeta: response.data
                 });
+                let title = response.data.title;
+                if (title.length > 50) {
+                    title = title.substr(0,40)+'...';
+                    this.setState({fetchedMeta: {
+                        album: response.data.album,
+                        band: response.data.band,
+                        genre: response.data.genre,
+                        title: title
+                    }});
+                }
             }).catch( (error) => {
             console.log(error);});
 
