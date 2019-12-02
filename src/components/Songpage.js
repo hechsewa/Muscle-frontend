@@ -126,7 +126,7 @@ class Songpage extends React.Component{
                             console.log(error);
                         });
                     }*/
-                    if (this.state.counter <= 30 === 0) { // pierwsze 30 utworów jest losowe
+                    if (this.state.counter <= 30) { // pierwsze 30 utworów jest losowe
                         axios.get('https://muscle-server.herokuapp.com/user/' + this.state.userId + '/random')
                             .then((response) => {
                                 if (response.data['song_id'] !== -1) {
