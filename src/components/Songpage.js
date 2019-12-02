@@ -58,7 +58,7 @@ class Songpage extends React.Component{
             .then((response) => {
                    this.setState({
                        counter: response.data["grade"]+1,
-                       recommended: (response.data["grade"])%5===0?'losowy':'polecony'
+                       recommended: (response.data["grade"])<=30?'losowy':'polecony'
                    });
                    console.log(response.data);
                 }).catch((error) => {
