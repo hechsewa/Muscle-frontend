@@ -69,6 +69,7 @@ class Songpage extends React.Component{
     componentWillMount () {
         axios.get('https://muscle-server.herokuapp.com/meta/'+this.state.songId)
             .then( (response) => {
+                console.log("zrobił reload..");
                 //console.log("response", response);
                 this.setState({
                     fetchedMeta: response.data
@@ -113,20 +114,14 @@ class Songpage extends React.Component{
              data: JSON.stringify(grade_obj),
              url: urlL,
             };
+            console.log("przed zapisem do bazy oceny...");
             axios(options).then((res) => {
+                console.log("po zapisie do bazy oceny...");
                 if (this.state.counter+1===40) {
                     this.props.history.push('/finish');
                     window.location.reload();
                 } else {
-                    /*if (this.state.counter+1===30) { // zapisz listę rekomendacji do bazy
-                        axios.get('https://muscle-server.herokuapp.com/user/' + this.state.userId + '/recommend')
-                            .then((response) => {
-                                console.log(response);
-                            }).catch((error) => {
-                            console.log(error);
-                        });
-                    }*/
-                    if (this.state.counter <= 30) { // pierwsze 30 utworów jest losowe
+                    if (this.state.counter < 30) { // pierwsze 30 utworów jest losowe
                         axios.get('https://muscle-server.herokuapp.com/user/' + this.state.userId + '/random')
                             .then((response) => {
                                 if (response.data['song_id'] !== -1) {
@@ -140,6 +135,7 @@ class Songpage extends React.Component{
                         axios.get('https://muscle-server.herokuapp.com/user/' + this.state.userId + '/recommend')
                             .then((response) => {
                                 let rec_song = response.data['song_id'];
+                                console.log("jest rekomendowany..."+rec_song);
                                 if (rec_song !== -1) {
                                     this.props.history.push('/user/' + this.state.userId + '/song/' + rec_song);
                                     window.location.reload();
