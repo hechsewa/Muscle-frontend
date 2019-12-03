@@ -17,7 +17,7 @@ class Homepage extends React.Component {
             <div className="home">
                 <img className='logoHome' src={logoPink} alt={'muscle logo pink'} />
                 <div className="welcome">
-                    <p>Cześć! Dzięki za chwilę twojego czasu. Ocenianie powinno zająć maksymalnie do 30 minut.
+                    <p>Cześć! Dzięki za chwilę twojego czasu. Ocenianie powinno zająć maksymalnie do 10 minut.
                         Jeśli chcesz wiedzieć więcej o projekcie - kilknij
                         <a href="/about"> tutaj</a>.
                     </p>
@@ -33,10 +33,10 @@ class Homepage extends React.Component {
                     </ul>
                 </div>
                 <p>
-                    Kolejne wyświetlane przez aplikację utwory będą bazować na twoich poprzednich ocenach i dobierać
-                    piosenki,
-                    które odpowiadają twoim gustom. Im więcej utworów ocenisz, tym dokładniejsze będą propozycje.
-                    Nie przerywaj badania, wyniki zostaną zapisane dopiero na końcu. Jak
+                    Na początku posłuchasz i ocenisz 30 losowych utworów. Następnie na podstawie twoich ocen
+                    i ocen innych użytkowników, system poleci 10 piosenek, które mogą Ci się spodobać. Posłuchaj
+                    rekomendacji i oceń je.
+                    Nie przerywaj oceniania. Jak
                     będziesz gotowy
                     kliknij poniższy przycisk, aby rozpocząć.
                 </p>
