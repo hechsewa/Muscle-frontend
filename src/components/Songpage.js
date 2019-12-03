@@ -24,6 +24,7 @@ class Songpage extends React.Component{
                 genre: '',
                 title: ''
             },
+            titleText: '',
             recommended: '',
             counter: ''
         };
@@ -58,7 +59,8 @@ class Songpage extends React.Component{
             .then((response) => {
                    this.setState({
                        counter: response.data["grade"]+1,
-                       recommended: (response.data["grade"])<=30?'losowy':'polecony'
+                       recommended: (response.data["grade"])+1<=30?'losowy':'polecony',
+                       titleText: (response.data["grade"])+1<=30?'Ocena piosenki':'Rekomendacja piosenki'
                    });
                    console.log(response.data);
                 }).catch((error) => {
@@ -117,7 +119,7 @@ class Songpage extends React.Component{
             console.log("przed zapisem do bazy oceny...");
             axios(options).then((res) => {
                 console.log("po zapisie do bazy oceny...");
-                if (this.state.counter+1===40) {
+                if (this.state.counter===40) {
                     this.props.history.push('/finish');
                     window.location.reload();
                 } else {
@@ -153,7 +155,7 @@ class Songpage extends React.Component{
     render() {
         return (
             <div className="audio">
-                <h1>Ocena piosenki</h1>
+                <h1>{this.state.titleText}</h1>
                 <Audioplayer cover={this.state.img}
                              id = {this.state.songId}
                              title={this.state.fetchedMeta.title}
