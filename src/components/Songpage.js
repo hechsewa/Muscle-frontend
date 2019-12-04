@@ -39,10 +39,15 @@ class Songpage extends React.Component{
             .get('https://muscle-server.herokuapp.com/pic/cover'+this.state.songId+'.jpg',
                 { responseType: 'arraybuffer' })
             .then(response => {
-                const base64 = btoa(
-                    new Uint8Array(response.data).reduce(
-                    (data, byte) => data + String.fromCharCode(byte),
-                    '',),);
+                let base64 = '';
+                /* if (response.data.status){
+                    base64 = '';
+                } else {
+                    base64 = btoa(
+                        new Uint8Array(response.data).reduce(
+                            (data, byte) => data + String.fromCharCode(byte),
+                            '',),);
+                } */
                 if (base64 === '') {
                     this.setState({ img: ''});
                 } else {
@@ -110,6 +115,7 @@ class Songpage extends React.Component{
             };
             // zapisz ocenę do bazy
             let urlL = "https://muscle-server.herokuapp.com/user/1/song/1/grade";
+            //let urlL= "http://localhost:5000/user/1/song/1/grade";
             const options = {
              method: 'POST',
              headers: { 'content-type': 'application/json' },
