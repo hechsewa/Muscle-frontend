@@ -40,14 +40,14 @@ class Songpage extends React.Component{
                 { responseType: 'arraybuffer' })
             .then(response => {
                 let base64 = '';
-                /* if (response.data.status){
+                if (response.data.status){
                     base64 = '';
                 } else {
                     base64 = btoa(
                         new Uint8Array(response.data).reduce(
                             (data, byte) => data + String.fromCharCode(byte),
                             '',),);
-                } */
+                }
                 if (base64 === '') {
                     this.setState({ img: ''});
                 } else {
